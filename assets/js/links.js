@@ -1,65 +1,115 @@
 /* -------------------------------------------------------------------------
-   ARQUIVO DE LINKS - P. AVELAR
+   ARQUIVO DE LINKS - P. AVELAR (RESTAURADO)
    ------------------------------------------------------------------------- */
 
 window.CONFIG = {
+    referencias: {
+        google_classroom_arq: "https://classroom.google.com/w/Njg4OTYxNDc5NjQ2/t/all"
+    },
 
-    // --- MENUS LATERAIS ---
     menus: [
         {
-            titulo: "TUTORIAIS",
+            titulo: "FERRAMENTAS",
             itens: [
-                { nome: "Arq - Modelagem",      link: "https://classroom.google.com/w/Njg4OTYxNDc5NjQ2/t/all" },
-                { nome: "Geral - Formatos",     link: "https://classroom.google.com/w/NzU1NzU5NTM4OTA3/t/all" },
-                { nome: "Geral - ACC",          link: "https://classroom.google.com/c/NzYwNDc2NDg3OTc4" }
+                {
+                    nome: "Templates",
+                    subitens:[
+                        { nome: "Arquitetura",      link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\ARQUITETURA" },
+                        { nome: "Elétrica",           link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\ELETRICA" },
+                        { nome: "Hidráulica",        link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\HIDRAULICA" },
+                        { nome: "Estrutural",        link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\CIVIL" }
+                    ]
+                },
+                {
+                    nome: "Plugins",
+                    subitens:[
+                        { nome: "BIMflow",      link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\ARQUITETURA" },
+                        { nome: "Pyrevit",           link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\ELETRICA" },
+                        { nome: "Prosheets",        link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\HIDRAULICA" }
+                    ]
+                }
             ]
         },
+
+
+
+
+
+
+        
+{
+            titulo: "PROCESSOS - GERAL",
+            itens: [
+                { nome: "Aprovação ACC", link: "pages/visualizador-acc.html" },
+                { nome: "Padrão de nomenclatura", link: "assets/pdf/nomenclatura-arquivos.pdf" },
+                { nome: "Outro", link: "#placeholder-link" }
+            ]
+        },
+
+
+
+
+
+
+
+
+
         {
-            titulo: "TEMPLATES",
+            titulo: "PROCESSOS - DISCIPLINAS",
             itens: [
-                { nome: "Arquitetura",      link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\ARQUITETURA" },
-                { nome: "Elétrica",         link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\ELETRICA" },
-                { nome: "Hidráulica",       link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\HIDRAULICA" },
-                { nome: "Estrutural",       link: "G:\\Drives compartilhados\\BIM\\TEMPLATES\\CIVIL" }
+
+                { 
+                    nome: "Arquitetura", 
+                    subitens: [ 
+                        { 
+                            nome: "Projetos", 
+                            subitens: [
+                                { nome: "Diretrizes gerais", link: "assets/pdf/DIRETRIZES ARQUITETURA_V00.pdf" },
+                                { nome: "Checklist executivo", link: "assets/pdf/CHECKLIST ARQUITETURA EXECUTIVO.pdf" }
+                            ]
+                        },
+                        { 
+                            nome: "Modelagem", 
+                            subitens: [ 
+                                { nome: "BIM Mandate", link: "https://docs.google.com/document/d/1ibmT17CEs1Ao6wvdHqdl6rNAkpJo78No/preview" },
+                                { nome: "Criação de Famílias", link: "assets/bpmn/arq-modelagem-familias.bpmn" }
+                            ]
+                        }
+                    ]
+                },
+                { nome: "Estrutural",   link: "pages/proc-est.html" },
+                { nome: "Elétrica",     link: "pages/proc-ele.html" },
+{ 
+    nome: "Hidráulica",        
+    subitens: [
+        { nome: "POP", link: "assets/bpmn/arq-modelagem-familias.bpmn" },
+        { nome: "Checklist (escolas)", link: "pages/hid-checklist-escolas.html" }
+    ] 
+}
             ]
         },
-        {
-            titulo: "PROCESSOS",
-            itens: [
-                // ALTERAÇÃO 1: Link direto para o arquivo geral-macro-fases.bpmn
-                { nome: "Aprovação ACC",         link: "assets/bpmn/geral-macro-fases.bpmn" },
-                
-                { nome: "Manual Processo",       link: "pages/aprovacao-arq-acc.html" },
-                
-                // ALTERAÇÃO 2: Link direto para o arquivo arq-modelagem-familias.bpmn
-                { nome: "Modelagem de família",  link: "assets/bpmn/arq-modelagem-familias.bpmn" },
-                
-                { nome: "Processo Estrutural",   link: "pages/proc-est.html" },
-                { nome: "Processo Elétrica",     link: "pages/proc-ele.html" },
-                { nome: "Processo Hidro",        link: "pages/proc-hidro.html" }
-            ]
-        },
+
+
+
+
+
+
+
+
+
         {
             titulo: "EQUIPE BIM",
             itens: [
-                { nome: "Templates Internos",    link: "pages/bim-templates.html" },
+                { nome: "Linha do tempo",    link: "pages/bim-timeline.html" },
                 { nome: "Tutoriais Internos",    link: "pages/bim-tutoriais.html" },
                 { nome: "Processos Internos",    link: "pages/bim-processos.html" }
             ]
         }
     ],
 
-    // --- CONFIGURAÇÃO DOS FLUXOGRAMAS ---
     fluxogramas: {
-        // Fluxograma padrão ao abrir o visualizador (mantive o de modelagem conforme seu teste anterior)
-        inicial: "assets/bpmn/arq-modelagem-familias.bpmn", 
-        
-        // Links internos clicáveis dentro dos desenhos (se houver caixas com esses nomes)
         links: {
-            "as built":     "assets/bpmn/arq-acc-aprovacao asbuilt.bpmn",
-            "anteprojeto":  "assets/bpmn/arq-acc-aprovacao anteprojeto.bpmn",
-            "ante-projeto": "assets/bpmn/arq-acc-aprovacao anteprojeto.bpmn",
-            "executivo":    "assets/bpmn/arq-acc-aprovacao executivo.bpmn"
+            "anteprojeto": "assets/bpmn/arq-acc-aprovacao anteprojeto.bpmn"
         }
     }
 };
