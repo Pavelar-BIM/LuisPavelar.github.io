@@ -1,336 +1,139 @@
 <!DOCTYPE html>
-
 <html lang="pt-br">
-
 <head>
-
     <meta charset="UTF-8">
-
     <title>P. AVELAR - HUB</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
     <style>
-
         :root { --primary: #002B49; --accent: #F26522; --sidebar-w: 300px; }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-
         body { display: flex; height: 100vh; overflow: hidden; }
-
-        
-
-        #sidebar {
-
-            width: var(--sidebar-w);
-
-            background: var(--primary);
-
-            color: white;
-
-            display: flex;
-
-            flex-direction: column;
-
-            flex-shrink: 0;
-
-            overflow-y: auto;
-
-            transition: all 0.3s;
-
-        }
-
+        #sidebar { width: var(--sidebar-w); background: var(--primary); color: white; display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; transition: all 0.3s; }
         #sidebar.hide { margin-left: calc(var(--sidebar-w) * -1); }
-
-        
-
         .sidebar-header { padding: 25px; background: #001f35; text-align: center; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
-
         .menu-section { border-bottom: 1px solid rgba(255,255,255,0.05); }
-
         .menu-title { padding: 15px 20px; cursor: pointer; background: rgba(0,0,0,0.2); font-size: 0.8rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
-
-        
-
         .menu-items { list-style: none; display: none; }
-
         .menu-items.open { display: block; }
-
-        
-
         .menu-items li { padding: 10px 15px 10px 20px; color: #b0c4de; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
-
         .menu-items li:hover { background: rgba(255,255,255,0.05); color: white; border-left: 4px solid var(--accent); }
-
-        
-
-        /* Ajustes para Níveis Subordinados (Submenus) */
-
-        .submenu {
-
-            list-style: none;
-
-            display: none;
-
-            padding-left: 15px;
-
-            margin-top: 5px;
-
-            border-left: 1px solid rgba(255,255,255,0.2);
-
-        }
-
+        .submenu { list-style: none; display: none; padding-left: 15px; margin-top: 5px; border-left: 1px solid rgba(255,255,255,0.2); }
         .submenu.open { display: block; }
-
-        
-
         .has-sub { font-weight: 600; color: white !important; }
-
         .has-sub span::after { content: ' ▼'; font-size: 0.6rem; opacity: 0.5; }
-
         .has-sub.active-sub span::after { content: ' ▲'; }
-
-
-
-        /* Estilo para o 3º nível (ex: Geral > Aprovação) */
-
         .submenu li { border-left: none !important; padding-left: 10px; }
-
-
-
         #main-content { flex: 1; display: flex; flex-direction: column; background: #f5f5f5; }
-
         .top-bar { height: 60px; background: white; border-bottom: 1px solid #eee; display: flex; align-items: center; padding: 0 20px; }
-
         iframe { width: 100%; height: 100%; border: none; }
-
-        
-        /* Estilo para a mensagem central */
         .welcome-msg { display: flex; flex: 1; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); }
-
     </style>
-
 </head>
-
 <body>
-
     <aside id="sidebar">
-
         <div class="sidebar-header">P. AVELAR <br><small>HUB DE PROCESSOS</small></div>
-
         <div id="menu-container"></div>
-
     </aside>
 
-
-
     <main id="main-content">
-
         <div class="top-bar">
-
             <button onclick="document.getElementById('sidebar').classList.toggle('hide')" style="cursor:pointer; background:none; border:none; font-size:1.5rem;">☰</button>
-
         </div>
-
         <div id="content-area" style="flex: 1; display: flex;">
             <iframe name="content-frame" id="content-frame" src="about:blank" style="display: none;"></iframe>
             <div id="placeholder-msg" class="welcome-msg">Utilize o menu lateral</div>
         </div>
-
     </main>
-
-
 
     <script src="assets/js/links.js"></script>
 
-
-
     <script>
+        // --- NOVA FUNÇÃO: CARREGA A PÁGINA E ATUALIZA A URL ---
+        function loadPage(url) {
+            if (!url || url.startsWith('#')) return;
+            
+            const frame = document.getElementById('content-frame');
+            const msg = document.getElementById('placeholder-msg');
+            
+            frame.style.display = 'block';
+            msg.style.display = 'none';
+            frame.src = url;
+
+            // Transforma "pages/arquivo.html" em "#arquivo" na URL
+            const pageName = url.split('/').pop().replace('.html', '');
+            window.location.hash = pageName;
+        }
+
+        // --- NOVA FUNÇÃO: VERIFICA SE HÁ PÁGINA NO LINK AO ABRIR ---
+        function checkHash() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                // Tenta encontrar o link completo no CONFIG baseado no nome do arquivo
+                // ou simplesmente reconstrói o caminho se seguir o padrão 'pages/'
+                loadPage(`pages/${hash}.html`);
+            }
+        }
 
         function createMenuItem(item) {
-
             const li = document.createElement('li');
-
-            
-
             if (item.subitens && item.subitens.length > 0) {
-
-                // Criamos um span para o texto para evitar conflito com a estrutura da lista
-
                 const textNode = document.createElement('span');
-
                 textNode.innerText = item.nome;
-
                 li.appendChild(textNode);
-
-                
-
                 li.className = 'has-sub';
-
-                
-
                 const subUl = document.createElement('ul');
-
                 subUl.className = 'submenu';
-
-                
-
-                item.subitens.forEach(sub => {
-
-                    subUl.appendChild(createMenuItem(sub));
-
-                });
-
-                
-
+                item.subitens.forEach(sub => subUl.appendChild(createMenuItem(sub)));
                 li.onclick = (e) => {
-
                     e.stopPropagation();
-
                     const isOpen = subUl.classList.contains('open');
-
-                    
-
                     if (isOpen) {
-
                         subUl.classList.remove('open');
-
                         li.classList.remove('active-sub');
-
-                        subUl.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
-
                     } else {
-
                         subUl.classList.add('open');
-
                         li.classList.add('active-sub');
-
                     }
-
                 };
-
-                
-
                 li.appendChild(subUl);
-
             } else {
-
                 li.innerText = item.nome;
-
                 li.onclick = (e) => {
-
                     e.stopPropagation();
-
-                    if (item.link) {
-
-                        // Se for um link de placeholder ou vazio, não faz nada ou avisa
-
-                        if(item.link.startsWith('#')) {
-
-                            console.log("Link em desenvolvimento: " + item.nome);
-
-                        } else {
-                            // MOSTRAR IFRAME E ESCONDER MENSAGEM AO CLICAR
-                            document.getElementById('content-frame').style.display = 'block';
-                            document.getElementById('placeholder-msg').style.display = 'none';
-                            document.getElementById('content-frame').src = item.link;
-
-                        }
-
-                    }
-
+                    loadPage(item.link); // Chamada da nova função
                 };
-
             }
-
             return li;
-
         }
-
-
 
         function renderMenu() {
-
             const container = document.getElementById('menu-container');
-
             if (!container || !window.CONFIG) return;
-
-            
-
             container.innerHTML = '';
-
-
-
             window.CONFIG.menus.forEach(grupo => {
-
                 const section = document.createElement('div');
-
                 section.className = 'menu-section';
-
-                
-
                 const title = document.createElement('div');
-
                 title.className = 'menu-title';
-
                 title.innerHTML = `${grupo.titulo} <span class="arrow">▼</span>`;
-
-                
-
                 const ul = document.createElement('ul');
-
                 ul.className = 'menu-items';
-
-                
-
                 title.onclick = () => {
-
                     const isOpen = ul.classList.contains('open');
-
-                    if (isOpen) {
-
-                        ul.classList.remove('open');
-
-                        ul.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
-
-                        title.querySelector('.arrow').innerText = '▼';
-
-                    } else {
-
-                        ul.classList.add('open');
-
-                        title.querySelector('.arrow').innerText = '▲';
-
-                    }
-
+                    ul.classList.toggle('open');
+                    title.querySelector('.arrow').innerText = isOpen ? '▼' : '▲';
                 };
-
-
-
-                grupo.itens.forEach(item => {
-
-                    ul.appendChild(createMenuItem(item));
-
-                });
-
-
-
+                grupo.itens.forEach(item => ul.appendChild(createMenuItem(item)));
                 section.appendChild(title);
-
                 section.appendChild(ul);
-
                 container.appendChild(section);
-
             });
-
         }
 
-
-
-        window.onload = renderMenu;
-
+        window.onload = () => {
+            renderMenu();
+            checkHash(); // Verifica a URL assim que carregar
+        };
     </script>
-
 </body>
-
 </html>
