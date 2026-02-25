@@ -76,7 +76,11 @@ window.CONFIG = {
                         }
                     ]
                 },
-                { nome: "Estrutural",   link: "pages/proc-est.html" },
+                {  nome: "Estrutural", 
+                            subitens: [
+                        { nome: "Checklist - Pranchas de concreto", link: "pages/ec-checklist-pranchas concreto.html" },
+                            ]
+                },
                 { nome: "Elétrica",     link: "pages/proc-ele.html" },
 { 
     nome: "Hidráulica",        
