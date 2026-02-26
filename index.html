@@ -154,6 +154,21 @@
         // Funções de controle do Iframe e Hash
         function loadPage(url) {
             if (!url || url.startsWith('#')) return;
+
+            // DOMÍNIOS QUE ABREM EM NOVA ABA
+            const dominiosExternos = [
+                "drive.google.com",
+                "classroom.google.com",
+                "acc.autodesk.com",
+                "autodesk.com",
+                "bim360.autodesk.com"
+            ];
+
+            if (dominiosExternos.some(dominio => url.includes(dominio))) {
+                window.open(url, '_blank');
+                return;
+            }
+
             const frame = document.getElementById('content-frame');
             const msg = document.getElementById('placeholder-msg');
             frame.style.display = 'block';
