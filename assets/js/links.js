@@ -86,9 +86,10 @@ window.CONFIG = {
             subitens: [
                 { nome: "Diretrizes gerais", link: "assets/pdf/DIRETRIZES ARQUITETURA_V00.pdf" },
                 { nome: "BIM Mandate", link: "https://docs.google.com/document/d/1ibmT17CEs1Ao6wvdHqdl6rNAkpJo78No/preview" },
-                { nome: "Criação de Famílias", link: "assets/bpmn/arq-modelagem-familias.bpmn" },
+                { nome: "Criação de Famílias", link: "pages/arq-criarfamilias.html" },
                 { nome: "Checklist executivo", link: "assets/pdf/CHECKLIST ARQUITETURA EXECUTIVO.pdf" },
-                { nome: "Checklist modelagem", link: "pages/arq-checklist-bim.html" }
+                { nome: "Checklist modelagem", link: "pages/arq-checklist-bim.html" },
+                { nome: "Tutoriais de modelagem", link: "pages/arq-videotutoriais.html" },
                       ]
                 },
 
@@ -120,8 +121,14 @@ window.CONFIG = {
             titulo: "EQUIPE BIM",
             itens: [
                 { nome: "Linha do tempo",    link: "pages/bim-timeline.html" },
-                { nome: "Tutoriais Internos",    link: "pages/bim-tutoriais.html" },
-                { nome: "Processos Internos",    link: "pages/bim-processos.html" }
+                { 
+                    nome: "Modelo federado", 
+                    subitens: [
+                        { nome: "Criação", link: "https://drive.google.com/file/d/1PCm2XT9RTTZEJbq6CEvFzTBedUbX0Cf-/view" },
+                        { nome: "Update automático", link: "https://drive.google.com/file/d/1K2jMqpO5AfjkU8R4do0Xg_pd2vFLwzCI/view" }
+                    ] 
+                },
+                
             ]
         }
     ],
